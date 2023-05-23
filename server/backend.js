@@ -1,5 +1,6 @@
 const express = require("express")
 const dbConnection= require("./db")
+const jwt=require("jsonwebtoken")
 const cors = require("cors")
 const app=express()
 
@@ -17,7 +18,7 @@ app.post("/login",(req,res)=>{
     dbConnection.query('SELECT * FROM usertable where Username= ? And Password= ?',[Username,Password], (err,result) => {
         if(err){
           console.log(err)
-        //   res.send(JSON.stringify({"err":"Wrong Credientials"}))
+        res.send(JSON.stringify({"err":"Wrong Credientials"}))
         }
         else{
           if (result.length===0){
