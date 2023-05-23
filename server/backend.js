@@ -1,6 +1,9 @@
 const express = require("express")
+
 const dbConnection= require("./db")
 const jwt=require("jsonwebtoken")
+
+
 const cors = require("cors")
 const app=express()
 
@@ -10,6 +13,7 @@ app.listen(5000,()=>{
 })
 
 app.use(cors())
+
 app.use(express.json())
 
 app.post("/login",(req,res)=>{
@@ -35,6 +39,8 @@ app.post("/login",(req,res)=>{
     }
     );
 })
+
+
 
 
 
