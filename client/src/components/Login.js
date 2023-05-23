@@ -31,6 +31,7 @@ class Login extends Component {
         if (response.statusText === "OK") {
             const data = await response.data
             console.log(data)
+            console.log("response received")
         }
 
 
