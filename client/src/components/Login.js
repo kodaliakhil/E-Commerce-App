@@ -26,7 +26,7 @@ class Login extends Component {
         event.preventDefault()
         const { Username, Password } = this.state
 
-        const response = await Axios.post("https://localhost:5000/login", { Username, Password })
+        const response = await post("http://localhost:5000/login", { Username, Password })
 
         if (response.statusText === "OK") {
             const data = await response.data

@@ -1,39 +1,45 @@
+const mongoose = require("mongoose")
+
+const schema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email:{
+        type: String,
+        required: true
+    },
+})
+
+const db = new mongoose.model("users", schema)
+
+
 const express = require("express")
-const dbConnection= require("./db")
-const cors = require("cors")
-const app=express()
-
-app.listen(5000,()=>{
-    console.log("Server Connected 5000 ")
-
-})
-
-app.use(cors())
+const app = express()
 app.use(express.json())
+app.use(express.urlencoded())
 
-app.post("/login",(req,res)=>{
-    const Username=req.body.Username
-    const Password = req.body.Password
-    dbConnection.query('SELECT * FROM usertable where Username= ? And Password= ?',[Username,Password], (err,result) => {
-        if(err){
-          console.log(err)
-        //   res.send(JSON.stringify({"err":"Wrong Credientials"}))
-        }
-        else{
-          if (result.length===0){
-            res.status(400)
-            res.send(JSON.stringify({err:"Wrong Credientials"}))
-          }else{
-            const payload={Username}
-            const jwtToken=jwt.sign(payload,"jwt_token");
-           
-           res.status(200);
-           res.send({jwtToken,result});
-          }            
-        }   
+mongoose.connect("mongodb+srv://vsasupalli:vsasupalli1234@db007.vd9amrw.mongodb.net/app?retryWrites=true&w=majority").then(
+    () => console.log("DB Connected")
+).catch(err => console.log(err))
+
+
+app.post("/add" , async (req, res) => {
+    const {name, email} = req.body 
+    console.log(name,email)
+    try{
+        const newData = new db({name,email})
+        res.json("user added successfuly")
+
+    }catch(err){
+        console.log(err.message)
     }
-    );
 })
 
+app.get("/adsa", (req, res) => {
+    res.send("Hello World..!")
+})
 
-
+app.listen(5000, () => {
+    console.log("app started on 5000")
+})
