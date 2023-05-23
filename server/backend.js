@@ -22,7 +22,7 @@ app.post("/login",(req,res)=>{
         else{
           if (result.length===0){
             res.status(400)
-            res.send(JSON.stringify({err:"Wrong Credientials"}))
+            res.send(JSON.stringify({err:"Wrong Crediential"}))
           }else{
             const payload={Username}
             const jwtToken=jwt.sign(payload,"jwt_token");
