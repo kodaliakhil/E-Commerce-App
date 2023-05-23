@@ -1,6 +1,6 @@
+import { Component } from 'react'
 import Axios from 'axios'
 
-import { Component } from 'react'
 
 
 
@@ -27,6 +27,7 @@ class Login extends Component {
         const { Username, Password } = this.state
 
         const response = await post("http://localhost:5000/login", { Username, Password })
+        const response = await Axios.post("http://localhost:5000/login", { Username, Password })
 
         if (response.statusText === "OK") {
             const data = await response.data

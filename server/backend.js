@@ -1,4 +1,9 @@
+
 const mongoose = require("mongoose")
+const express = require("express")
+const app=express()
+app.use(express.json())
+app.use(express.urlencoded())
 
 const schema = mongoose.Schema({
     name: {
@@ -12,12 +17,6 @@ const schema = mongoose.Schema({
 })
 
 const db = new mongoose.model("users", schema)
-
-
-const express = require("express")
-const app = express()
-app.use(express.json())
-app.use(express.urlencoded())
 
 mongoose.connect("mongodb+srv://vsasupalli:vsasupalli1234@db007.vd9amrw.mongodb.net/app?retryWrites=true&w=majority").then(
     () => console.log("DB Connected")
@@ -33,13 +32,12 @@ app.post("/add" , async (req, res) => {
 
     }catch(err){
         console.log(err.message)
-    }
-})
 
-app.get("/adsa", (req, res) => {
+app.get("/", (req, res) => {
     res.send("Hello World..!")
 })
 
 app.listen(5000, () => {
     console.log("app started on 5000")
 })
+
